@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/client_web:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/alpine:latest
 
       - name: Log out from Docker Hub
         run: docker logout
