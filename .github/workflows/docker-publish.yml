@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nginx:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nginx:v1
 
       - name: Log out from Docker Hub
         run: docker logout
