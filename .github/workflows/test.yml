@@ -1,0 +1,53 @@
+name: macOS Runner CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Add your build/test/deploy steps here
+
+      - name: Finalize Job
+        run: echo "Job completed successfully!"
+
+  check_delay:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Check Delay
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const jobStatus = github.workflow.runs.listForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.run_id }},
+              status: 'completed'
+            });
+
+            const completedJobs = jobStatus.data.workflow_runs;
+            const jobTimes = completedJobs.map(job => new Date(job.completed_at).getTime() - new Date(job.started_at).getTime());
+            const maxDelay = Math.max(...jobTimes);
+
+            core.info(`Maximum job delay: ${maxDelay / 60000} minutes`);
+
+            if (maxDelay > 180000) {
+              core.setFailed(`Job exceeded maximum delay of 3 minutes.`);
+            }
