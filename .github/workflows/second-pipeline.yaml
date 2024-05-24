@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: First Job
         run: echo 'hello to pny class'
@@ -19,11 +19,11 @@ jobs:
     needs: first-job
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Second Job
         run: |
-          echo 'Executing second job'
+          ech 'Executing second job'
           sleep 30
 
   third-job:
@@ -31,7 +31,7 @@ jobs:
     needs: second-job
     steps:
       - name: Checkout Repository
-        uses: actions/checkout
+        uses: actions/checkout@v4
 
       - name: Third Job
         run: echo 'its pny class of Github Actions'
