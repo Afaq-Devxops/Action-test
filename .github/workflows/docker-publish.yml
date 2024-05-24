@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: chek the docker images
+        run: docker images
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3        
 
