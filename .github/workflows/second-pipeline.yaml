@@ -1,0 +1,37 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - second-pipeline
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: First Job
+        run: echo 'hello to pny class'
+
+  second-job:
+    runs-on: ubuntu-latest
+    needs: first-job
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Second Job
+        run: |
+          echo 'Executing second job'
+          sleep 30
+
+  third-job:
+    runs-on: ubuntu-latest
+    needs: second-job
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Third Job
+        run: echo 'its pny class of Github Actions'
