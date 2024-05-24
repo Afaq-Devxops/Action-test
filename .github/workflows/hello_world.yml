@@ -1,0 +1,19 @@
+name: Hello World Pipeline  # Name of the workflow
+
+on:  # Triggers for the workflow
+  push:  # Triggers on push events
+    branches:  # Triggered on these branches
+      - main  # Only on the 'main' branch
+
+jobs:  # Define jobs within the workflow
+  build:  # Name of the job
+    name: Build  # Display name for the job in GitHub Actions UI
+
+    runs-on: ubuntu-latest  # Operating system for the job
+
+    steps:  # Steps to be executed in the job
+      - name: Checkout Repository  # Checkout the repository
+        uses: actions/checkout@v2  # Action to checkout the repository
+
+      - name: Hello World  # Step name
+        run: echo "Hello, World!"  # Command to print "Hello, World!"
